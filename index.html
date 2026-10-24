@@ -1,25 +1,77 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> To-Do-List App </title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="container">
-            <div class="todo-app">
-                <h2>To-Do-List <img class="checked" src="images/to-do-list.png"></h2>
-                <div class="row">
-                    <input type="text" id="input-box" placeholder="Add your text">
-                    <button onclick="addTask()">Add</button>
-                </div>
-                <ul id="list-container">
-                    <!-- <li class="checked">Task 1</li>
-                    <li>Task 2</li>
-                    <li>Task 3</li> -->
-                </ul>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To-Do List</title>
+    <meta name="description" content="A clean to-do list app: add, complete, filter and delete tasks. Tasks are saved in your browser.">
+    <link rel="icon" type="image/png" href="images/to-do-list.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <header class="app-header">
+            <div>
+                <p class="eyebrow" id="today"></p>
+                <h1>
+                    <img class="logo-img" src="images/to-do-list.png" alt="" width="30" height="36">
+                    My Tasks
+                </h1>
             </div>
+            <p class="summary"><span id="done-count">0</span><span class="summary-total">/<span id="total-count">0</span></span><span class="summary-label">done</span></p>
+        </header>
+
+        <div class="progress" id="progress" role="progressbar" aria-label="Completed tasks" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span id="progress-bar"></span>
         </div>
-    </body>
+
+        <form class="task-form" id="task-form" autocomplete="off" novalidate>
+            <label class="sr-only" for="task-input">New task</label>
+            <input id="task-input" type="text" placeholder="Add a new task…" maxlength="120">
+            <button type="submit">Add task</button>
+        </form>
+        <p class="form-error" id="form-error" role="alert" hidden>Please write something first.</p>
+
+        <div class="filters" role="group" aria-label="Filter tasks">
+            <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter" data-filter="active" aria-pressed="false">Active</button>
+            <button type="button" class="filter" data-filter="done" aria-pressed="false">Completed</button>
+        </div>
+
+        <ul class="task-list" id="task-list"></ul>
+
+        <div class="empty" id="empty" hidden>
+            <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+                <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".35"/>
+                <path d="M15 24.5l6 6L33 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p id="empty-text">Nothing here yet.</p>
+        </div>
+
+        <footer class="app-footer">
+            <span id="count">0 tasks left</span>
+            <div class="footer-actions">
+                <button type="button" class="link-btn link-neutral" id="open-history">History</button>
+                <button type="button" class="link-btn" id="clear-done">Clear completed</button>
+            </div>
+        </footer>
+    </main>
+
+    <dialog class="history" id="history-dialog" aria-labelledby="history-title">
+        <header class="history-head">
+            <div>
+                <h2 id="history-title">Task history</h2>
+                <p class="hist-stats" id="history-stats"></p>
+            </div>
+            <button type="button" class="link-btn link-neutral" id="history-close" aria-label="Close history">Close</button>
+        </header>
+        <ul class="history-list" id="history-list"></ul>
+        <p class="history-empty" id="history-empty" hidden>No history yet. Add a task to get started.</p>
+        <footer class="history-foot">
+            <button type="button" class="link-btn" id="history-clear">Clear history</button>
+        </footer>
+    </dialog>
+
     <script src="script.js"></script>
+</body>
 </html>
